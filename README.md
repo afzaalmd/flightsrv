@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # flightsrv
 =======
+=======
+>>>>>>> 86c6044 (initial commit)
 # Getting Started
 
 Welcome to your new project.
@@ -26,4 +29,7 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+<<<<<<< HEAD
+>>>>>>> 86c6044 (initial commit)
+=======
 >>>>>>> 86c6044 (initial commit)
