@@ -29,7 +29,9 @@
   "cds": {
     "requires": {
       "auth": "xsuaa",
-      "db": "hana"
+      "db": "hana",
+      "destinations": true,
+      "html5-repo": true
     }
   },
   "sapux": [

@@ -1,0 +1,81 @@
+global:
+  domain: b330577.kyma.ondemand.com
+  imagePullSecret:
+    name: regcred
+srv:
+  bindings:
+    db:
+      fromSecret: flightsrv-db
+    auth:
+      serviceInstanceName: xsuaa
+    destination:
+      serviceInstanceName: 'destination'
+  image:
+    repository: afzaalmd9/flightsrv-srv
+    tag: latest
+  resources:
+    limits:
+      ephemeral-storage: 1G
+      memory: 500M
+    requests:
+      ephemeral-storage: 1G
+      cpu: 500m
+      memory: 500M
+  health:
+    liveness:
+      path: /health
+    readiness:
+      path: /health
+hana-deployer:
+  image:
+    repository: afzaalmd9/flightsrv-hana-deployer
+    tag: latest
+  bindings:
+    auth:
+      serviceInstanceName: xsuaa
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1G
+    requests:
+      cpu: 1000m
+      memory: 1G
+xsuaa:
+  serviceOfferingName: xsuaa
+  servicePlanName: application
+  parameters:
+    xsappname: flightsrv
+    tenant-mode: dedicated
+destination:
+  serviceOfferingName: 'destination'
+  servicePlanName: 'lite'
+  parameters:
+    version: '1.0.0'
+    HTML5Runtime_enabled: true
+html5-apps-repo-host:
+  serviceOfferingName: html5-apps-repo
+  servicePlanName: app-host
+html5-apps-deployer:
+  image:
+    repository: "afzaalmd9/flightsrv-html5-deployer"
+    tag: latest
+  bindings:
+    xsuaa:
+      serviceInstanceName: xsuaa
+    destination:
+      serviceInstanceName: destination
+    html5-apps-repo:
+      serviceInstanceName: html5-apps-repo-host
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1G
+    requests:
+      cpu: 1000m
+      memory: 1G
+  # envFrom:
+  #- configMapRef:
+#   name: "{{ .Release.Name }}-html5-apps-deployer-configmap"
+#env:
+# SAP_CLOUD_SERVICE: null
+backendDestinations: {}
