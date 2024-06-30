@@ -4,7 +4,7 @@ global:
     name: regcred
 srv:
   bindings:
-    db:
+    hana:
       fromSecret: flightsrv-db
     auth:
       serviceInstanceName: xsuaa
@@ -31,6 +31,8 @@ hana-deployer:
     repository: afzaalmd9/flightsrv-hana-deployer
     tag: latest
   bindings:
+    hana:
+      fromSecret: flightsrv-db
     auth:
       serviceInstanceName: xsuaa
   resources:
@@ -46,11 +48,27 @@ xsuaa:
   parameters:
     xsappname: flightsrv
     tenant-mode: dedicated
+    oauth2-configuration:
+      redirect-uris:
+      - https://*.b330577.kyma.ondemand.com/**
+  config: xs-security.json
 destination:
   serviceOfferingName: 'destination'
   servicePlanName: 'lite'
   parameters:
     version: '1.0.0'
+    config:
+      HTML5Runtime_enabled: true
+      HTML5.DynamicDestination: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
     HTML5Runtime_enabled: true
 html5-apps-repo-host:
   serviceOfferingName: html5-apps-repo
@@ -74,8 +92,7 @@ html5-apps-deployer:
       cpu: 1000m
       memory: 1G
   # envFrom:
-  #- configMapRef:
+#- configMapRef:
 #   name: "{{ .Release.Name }}-html5-apps-deployer-configmap"
-#env:
-# SAP_CLOUD_SERVICE: null
+
 backendDestinations: {}

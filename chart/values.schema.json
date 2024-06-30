@@ -70,10 +70,6 @@
             "$id": "#/properties/destination",
             "description": "Service Instance"
         },
-        "hana": {
-            "$id": "#/properties/hana",
-            "description": "Service Instance"
-        },
         "saas-registry": {
             "$id": "#/properties/saas-registry",
             "description": "Service Instance"

@@ -42,11 +42,6 @@
             "description": "Service Instance",
             "$ref": "./charts/service-instance/values.schema.json"
         },
-        "hana": {
-            "$id": "#/properties/hana",
-            "description": "Service Instance",
-            "$ref": "./charts/service-instance/values.schema.json"
-        },
         "saas-registry": {
             "$id": "#/properties/saas-registry",
             "description": "Service Instance",
